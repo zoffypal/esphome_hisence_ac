@@ -1,6 +1,6 @@
 esphome:
-  name: "room1ac"
-  friendly_name: room1ac
+  name: "my_hisense_ac"
+  friendly_name: ac
   includes:
     #- aircon_climate.h
     - hisense_ac.h
@@ -28,13 +28,13 @@ ota:
   password: ""
 
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
+  ssid: 
+  password: 
   fast_connect: true
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "room1ac Fallback Hotspot"
+    ssid: "ac Fallback Hotspot"
     password: ""
 
 captive_portal:
@@ -84,7 +84,7 @@ climate:
   climates:
     - name: "Aircon Climate"
 
-sensor:
+sensor: # those sensors not work on my AC, can't read any sensors data from RX.
 - platform: custom
   lambda: |-
     return {
@@ -147,7 +147,8 @@ sensor:
     icon: "mdi:water-percent"
     device_class: "humidity"
     state_class: "measurement"
-- platform: dht # external dht22 sensor
+    
+- platform: dht # external dht22 sensor, if no this sensor connected will not have current temperature data.
   pin: GPIO13  # GPIO pin connected to the DHT22
   temperature:
     name: "room ac Temperature dht22"
